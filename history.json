@@ -1,0 +1,26 @@
+[
+    [
+        {
+            "amount": "23000",
+            "category": "Transport",
+            "id": "89c4650d-6000-47da-8368-640d4795bd62"
+        },
+        {
+            "amount": "345555",
+            "category": "Entertainment",
+            "id": "dec26b38-923d-4eb8-86c9-e9a89be1bede"
+        }
+    ],
+    [
+        {
+            "amount": "23000",
+            "category": "Food",
+            "id": "73d3d668-3100-40ea-9479-c20abae8b52a"
+        },
+        {
+            "amount": "2300000",
+            "category": "Internet",
+            "id": "51e23a24-ad75-4072-916c-05c77fcc033a"
+        }
+    ]
+]

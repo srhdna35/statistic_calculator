@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Edit Item{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+  <div class="card-body">
+    <h4 class="text-center text-warning mb-4">✏️ Edit Expense</h4>
+    <form method="POST">
+      <div class="mb-3">
+        <label class="form-label">Amount</label>
+        <input type="number" class="form-control" name="amount" value="{{ item.amount }}" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select class="form-select" name="category" required>
+          <option value="Food" {% if item.category == 'Food' %}selected{% endif %}>Food</option>
+          <option value="Transport" {% if item.category == 'Transport' %}selected{% endif %}>Transport</option>
+          <option value="Internet" {% if item.category == 'Internet' %}selected{% endif %}>Internet</option>
+          <option value="Study Materials" {% if item.category == 'Study Materials' %}selected{% endif %}>Study Materials</option>
+          <option value="Entertainment" {% if item.category == 'Entertainment' %}selected{% endif %}>Entertainment</option>
+          <option value="Others" {% if item.category == 'Others' %}selected{% endif %}>Others</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-warning w-100">Update</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+
+edit.html

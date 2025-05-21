@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Calculator{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+  <div class="card-body">
+    <h2 class="card-title mb-4 text-center text-success">💸 Add Your Expenses</h2>
+    <form id="expense-form" method="POST" action="/result">
+      <div id="inputs"></div>
+      <button type="button" class="btn btn-outline-primary mb-3" onclick="addExpense()">➕ Add Expense</button>
+      <input type="hidden" name="expenses" id="expenses-data">
+      <button type="submit" class="btn btn-success w-100">Calculate</button>
+    </form>
+  </div>
+</div>
+
+<script>
+let index = 0;
+
+function addExpense(amount = '', category = '') {
+    const container = document.getElementById('inputs');
+    const div = document.createElement('div');
+    div.className = "row g-3 align-items-center mb-3 p-3 border rounded";
+    div.innerHTML = `
+        <div class="col-md-6">
+            <input type="number" class="form-control" placeholder="Amount (Rp)" required data-type="amount" value="${amount}">
+        </div>
+        <div class="col-md-6">
+            <select class="form-select" required data-type="category">
+                <option value="">Choose Category</option>
+                <option value="Food" ${category === 'Food' ? 'selected' : ''}>Food</option>
+                <option value="Transport" ${category === 'Transport' ? 'selected' : ''}>Transport</option>
+                <option value="Internet" ${category === 'Internet' ? 'selected' : ''}>Internet</option>
+                <option value="Study Materials" ${category === 'Study Materials' ? 'selected' : ''}>Study Materials</option>
+                <option value="Entertainment" ${category === 'Entertainment' ? 'selected' : ''}>Entertainment</option>
+                <option value="Others" ${category === 'Others' ? 'selected' : ''}>Others</option>
+            </select>
+        </div>`;
+    container.appendChild(div);
+}
+
+// Tambahkan satu form input default saat load
+window.onload = () => {
+    addExpense();
+};
+
+document.getElementById("expense-form").addEventListener("submit", function (e) {
+    const amounts = document.querySelectorAll('[data-type="amount"]');
+    const categories = document.querySelectorAll('[data-type="category"]');
+    const expenses = [];
+    for (let i = 0; i < amounts.length; i++) {
+        if (!amounts[i].value || !categories[i].value) {
+            alert("Please fill in all expense fields.");
+            e.preventDefault();
+            return;
+        }
+        expenses.push({
+            amount: amounts[i].value,
+            category: categories[i].value
+        });
+    }
+    document.getElementById("expenses-data").value = JSON.stringify(expenses);
+});
+</script>
+{% endblock %}

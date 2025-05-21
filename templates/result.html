@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Results{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+  <div class="card-body text-center">
+    <h3 class="text-success mb-4">📊 Statistics</h3>
+    <ul class="list-group text-start mb-4">
+      <li class="list-group-item">Total: <strong>Rp {{ total }}</strong></li>
+      <li class="list-group-item">Mean: <strong>{{ mean }}</strong></li>
+      <li class="list-group-item">Median: <strong>{{ median }}</strong></li>
+      <li class="list-group-item">Mode: <strong>{{ mode }}</strong></li>
+      <li class="list-group-item">Minimum: <strong>{{ minimum }}</strong></li>
+      <li class="list-group-item">Maximum: <strong>{{ maximum }}</strong></li>
+      <li class="list-group-item">Range: <strong>{{ range_value }}</strong></li>
+      <li class="list-group-item">Standard Deviation: <strong>{{ stdev }}</strong></li>
+      <li class="list-group-item">Total Items: <strong>{{ count }}</strong></li>
+      <li class="list-group-item">Categories Used: <strong>{{ categories|join(', ') }}</strong></li>
+    </ul>
+
+    <!-- 📈 Quartiles Section -->
+    <h5 class="mt-4 text-primary">Quartiles</h5>
+    <ul class="list-group text-start mb-4">
+      <li class="list-group-item">Q1 (25%): <strong>{{ q1 }}</strong></li>
+      <li class="list-group-item">Q2 (Median): <strong>{{ q2 }}</strong></li>
+      <li class="list-group-item">Q3 (75%): <strong>{{ q3 }}</strong></li>
+    </ul>
+
+    <h5 class="mt-4">Your Entries</h5>
+    <table class="table table-bordered mt-2">
+      <thead>
+        <tr>
+          <th>Amount (Rp)</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in expenses %}
+        <tr>
+          <td>{{ item.amount }}</td>
+          <td>{{ item.category }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- 📊 Histogram Section -->
+    <h5 class="mt-5 text-primary">Expense Histogram</h5>
+    <canvas id="expenseChart" height="100"></canvas>
+
+    <div class="mt-4">
+      <a href="/calculator" class="btn btn-outline-primary me-2">🔄 Try Again</a>
+      <a href="/history" class="btn btn-outline-dark me-2">📖 View History</a>
+      <a href="/" class="btn btn-outline-secondary">🏠 Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const chartLabels = {{ chart_labels | tojson | safe }};
+  const chartValues = {{ chart_values | tojson | safe }};
+</script>
+<script src="{{ url_for('static', filename='js/result.js') }}"></script>
+{% endblock %}
