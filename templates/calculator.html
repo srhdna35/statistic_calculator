@@ -39,7 +39,6 @@ function addExpense(amount = '', category = '') {
     container.appendChild(div);
 }
 
-// Tambahkan satu form input default saat load
 window.onload = () => {
     addExpense();
 };
@@ -47,6 +46,13 @@ window.onload = () => {
 document.getElementById("expense-form").addEventListener("submit", function (e) {
     const amounts = document.querySelectorAll('[data-type="amount"]');
     const categories = document.querySelectorAll('[data-type="category"]');
+
+    if (amounts.length < 2) {
+        e.preventDefault();
+        alert("Please enter at least two expenses to calculate statistics.");
+        return;
+    }
+
     const expenses = [];
     for (let i = 0; i < amounts.length; i++) {
         if (!amounts[i].value || !categories[i].value) {
@@ -59,6 +65,7 @@ document.getElementById("expense-form").addEventListener("submit", function (e) 
             category: categories[i].value
         });
     }
+
     document.getElementById("expenses-data").value = JSON.stringify(expenses);
 });
 </script>

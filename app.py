@@ -3,7 +3,7 @@ import statistics
 import json
 import os
 import uuid
-import numpy as np  # Tambahkan untuk menghitung kuartil
+import numpy as np  # Added for calculating quartiles
 from collections import Counter, defaultdict
 from flask import render_template, request
 
@@ -55,7 +55,6 @@ def result():
         )
     except Exception as e:
         return f"Error: {e}"
-
 
 @app.route('/history')
 def history():
